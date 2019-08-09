@@ -39,27 +39,25 @@ def main():
                 if event.key == K_F11:
                     screen = pygame.display.set_mode(size, FULLSCREEN)
                 if event.key == K_w:
-                    player.move_y(-16)
+                    player.move_y(-32)
                 if event.key == K_s:
-                    player.move_y(16)
+                    player.move_y(32)
                 if event.key == K_a:
-                    player.move_x(-16)
+                    player.move_x(-32)
                 if event.key == K_d:
-                    player.move_x(16)
+                    player.move_x(32)
                 if event.key == K_UP:
-                    player.move_y(-16)
+                    player.move_y(-32)
                 if event.key == K_DOWN:
-                    player.move_y(16)
+                    player.move_y(32)
                 if event.key == K_LEFT:
-                    player.move_x(-16)
+                    player.move_x(-32)
                 if event.key == K_RIGHT:
-                    player.move_x(16)
+                    player.move_x(32)
 
         screen.fill((0, 0, 0))
         current_level.update()
         current_level.draw(screen)
-        player.update()
-        player.draw(screen)
         pygame.display.flip()
 
 

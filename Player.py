@@ -7,12 +7,21 @@ class Player(pygame.sprite.Sprite):
         self.images = images
         self.image = pygame.image.load(images["d"])
         self.rect = self.image.get_rect
-        self.image = pygame.transform.smoothscale(self.image,(32, 32))
+        self.image = pygame.transform.smoothscale(self.image,(30, 30))
         self.rect = self.image.get_rect()
         self.rect.center = pos
         self.movement = [0, 0]
         self.dir = "d"
         self.level = None
+        self.health = 100
+        self.alive = True
+
+    def defend(self, damage):
+        self.health -= damage
+        if self.health <=0:
+            self.alive = False
+
+
 
     def next_level(self, level):
         self.level = level
@@ -42,7 +51,6 @@ class Player(pygame.sprite.Sprite):
 
         hits = pygame.sprite.spritecollide(self, self.level.walls, False)
         if len(hits) >=1:
-            print("wall")
             if pygame.sprite.collide_rect(self, self.level.end) and self.level.end.unlocked:
                 return 1
             self.movement[0] *= -1
@@ -52,4 +60,5 @@ class Player(pygame.sprite.Sprite):
         self.movement = [0, 0]
 
     def draw(self, screen):
-        screen.blit(self.image, self.rect)
+        if self.alive:
+            screen.blit(self.image, self.rect)

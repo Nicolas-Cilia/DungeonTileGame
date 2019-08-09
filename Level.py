@@ -1,6 +1,7 @@
 import pygame
 import random
 from Tile import *
+from Enemy import *
 
 class Level(pygame.sprite.Sprite):
     def __init__(self, images, player):
@@ -8,6 +9,7 @@ class Level(pygame.sprite.Sprite):
 
         self.walls = pygame.sprite.Group()
         self.floors = pygame.sprite.Group()
+        self.enemies = pygame.sprite.Group()
 
         self.player = player
         self.start_pos = (0, 0)
@@ -17,11 +19,16 @@ class Level(pygame.sprite.Sprite):
 
         self.generate_level(images)
 
+    def update(self):
+        self.enemies.update()
+        self.player.update()
 
     def draw(self, screen):
         self.floors.draw(screen)
         self.walls.draw(screen)
         self.player.draw(screen)
+        self.enemies.draw(screen)
+
 
 
 
@@ -88,4 +95,7 @@ class Level(pygame.sprite.Sprite):
                     self.end = Door(images["normal door"], (x * 32, y * 32), False)
                     self.walls.add(self.end)
 
+        for i in range(8):
+            self.enemies.add(Enemy("Images/big monster.png", random.choice(self.floors.sprites()).rect.center, self))
 
+# class Intro_Room(Level)
