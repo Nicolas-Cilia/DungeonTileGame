@@ -13,9 +13,9 @@ screen = pygame.display.set_mode(size, FULLSCREEN)
 clock = pygame.time.Clock()
 
 images = {"w": "images/wall_1.png", "f": "images/Floor1.png",
-         "player": "Images/Player.png"}
+         "player": "Images/zelda image front.png"}
 
-player = Player(images["player"], (16, 16))
+player = Player(images["player"], (32, 32))
 
 def main():
     current_level = Level(images)
