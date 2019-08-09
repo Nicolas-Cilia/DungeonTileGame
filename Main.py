@@ -49,7 +49,7 @@ def main():
                     player.move_x(-16)
                 if event.key == K_RIGHT:
                     player.move_x(16)
-                    
+
         screen.fill((0, 0, 0))
         current_level.update()
         current_level.draw(screen)
