@@ -13,7 +13,7 @@ screen = pygame.display.set_mode(size, FULLSCREEN)
 clock = pygame.time.Clock()
 
 images = {"w": "images/wall_1.png", "f": "images/Floor1.png",
-         "player": "Images/zelda image front.png"}
+         "player": "Images/Zelda facing front 2nd idk.png"}
 
 player = Player(images["player"], (32, 32))
 
