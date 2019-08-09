@@ -3,11 +3,17 @@ import random
 from Tile import *
 
 class Level(pygame.sprite.Sprite):
-    def __init__(self, images):
+    def __init__(self, images, player):
         super(). __init__()
 
         self.walls = pygame.sprite.Group()
         self.floors = pygame.sprite.Group()
+
+        self.player = player
+        self.start_pos = (0, 0)
+        self.end_pos = (0, 0)
+        self.start = None
+        self.end = None
 
         self.generate_level(images)
 
@@ -15,6 +21,26 @@ class Level(pygame.sprite.Sprite):
     def draw(self, screen):
         self.floors.draw(screen)
         self.walls.draw(screen)
+        self.player.draw(screen)
+
+
+
+    def place_start(self, level_grid):
+        for x in range(len(level_grid)):
+            for y in range (1, len(level_grid[0])):
+                if level_grid[x][y] == "f":
+                    self.start_pos = (x * 32 + 1, y * 32 + 1)
+                    level_grid[x][y - 1] = "s"
+                    return
+
+    def place_end(self, level_grid):
+        for x in range(len(level_grid) - 2, 0, -1):
+            for y in range (1, len(level_grid[0])- 1):
+                if level_grid[x][y] == "f":
+                    self.end_pos = (x * 32, y * 32)
+                    level_grid[x][y] = "e"
+                    return
+
 
     def generate_level(self, images):
         level_grid = []
@@ -46,10 +72,20 @@ class Level(pygame.sprite.Sprite):
                 y -= 1
             if dir ==4 and y < len(level_grid[0]) - 4:
                 y += 1
+        self.place_start(level_grid)
+        self.place_end(level_grid)
 
         for x in range(len(level_grid)):
             for y in range(len(level_grid[0])):
                 if level_grid[x][y] == "w":
                     self.walls.add(Tile(images["w"], (x * 32, y * 32)))
                 if level_grid[x][y] == "f":
-                    self.walls.add(Tile(images["f"], (x * 32, y * 32)))
+                    self.floors.add(Tile(images["f"], (x * 32, y * 32)))
+                if level_grid[x][y] == "s":
+                    self.start = Door(images["normal door"], (x * 32, y * 32), True)
+                    self.walls.add(self.start)
+                if level_grid[x][y] == "e":
+                    self.end = Door(images["normal door"], (x * 32, y * 32), False)
+                    self.walls.add(self.end)
+
+

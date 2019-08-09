@@ -12,13 +12,18 @@ screen = pygame.display.set_mode(size, FULLSCREEN)
 
 clock = pygame.time.Clock()
 
-images = {"w": "images/wall_1.png", "f": "images/Floor1.png",
-         "player": "Images/Zelda facing front 2nd idk.png"}
+images = {"w": "Images/brown brick wall.png", "f": "Images/sandstone_wall_0.png",
+         "player": {"u": "Images/zelda back.png",
+                    "d": "Images/zelda image front.png",
+                    "l": "Images/zelda facing left.png",
+                    "r": "Images/zelda facing right.png"},
+          "normal door": {True:"Images/open_normal_door.png", False: "Images/closed_normal_door.png"}}
 
 player = Player(images["player"], (32, 32))
 
 def main():
-    current_level = Level(images)
+    current_level = Level(images, player)
+    player.next_level (current_level)
     global screen
     while True:
         clock.tick(60)
